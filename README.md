@@ -1,2 +1,3 @@
 # DF_Adapter
-c/c++ os api adpter
+
+This is adpter for os api
