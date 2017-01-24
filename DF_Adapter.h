@@ -1,3 +1,6 @@
+#ifndef DF_ADAPTER_H
+#define DF_ADAPTER_H
+
 /*
 file:	DFAdapter.h
 brief:	OS API adapter definition
@@ -57,11 +60,15 @@ author:	Dong Xiaofei
 typedef unsigned int DF_THREAD_ID;
 typedef HANDLE	DF_THREAD_HANDLE;
 typedef void (*DF_THRDPROC)(void *pvParam);
+#define DF_THREAD_RETYPE void
+#define DF_THREAD_DEFAULT_RETURN
 #else
 typedef pthread_t	DF_THREADID;
 typedef pthread_t	DF_THREAD_HANDLE;
 #define JTHREADID_NULL 0
 typedef void* (*DF_THRDPROC)(void *pvParam);
+#define DF_THREAD_RETYPE void*
+#define DF_THREAD_DEFAULT_RETURN NULL
 #endif
 
 
@@ -77,14 +84,12 @@ typedef void* (*DF_THRDPROC)(void *pvParam);
 
 
 //Thread create function
-DF_THREAD_HANDLE DF_CreateThread(	DF_THREAD_ID &tid, 						/* Thread' id. */ \
-									unsigned int nStackSize, 					/* Set the thread stack's size. */ \
-									DF_THRDPROC pFunc, 						/* Set thread's loop func. */ \
-									void *pArg, 								/* This para will be send to the new thread. */ \
-									E_THREAD_FLAG eFlag 						/* The thread's ctrl flag */ \
-									);
-
-
+DF_THREAD_HANDLE DF_CreateThread(DF_THREAD_ID &tid, 		/* Thread' id. */ \
+								unsigned int nStackSize, 	/* Set the thread stack's size. */ \
+								DF_THRDPROC pFunc, 			/* Set thread's loop func. */ \
+								void *pArg, 				/* This para will be send to the new thread. */ \
+								E_THREAD_FLAG eFlag);		/* The thread's ctrl flag */ \
+								
 
 
 /*****************	Mutex class	*****************/
@@ -128,3 +133,7 @@ private:
 	DF_FILE_HADLE phandle;
 	int mfile_size;
 };
+
+
+
+#endif
